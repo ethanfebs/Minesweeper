@@ -12,15 +12,18 @@ def print_board(board):
     """
     d = len(board)
 
+    # print upper border
     for i in range(d):
         print("==", end='')
     print()
 
+    # print 2D list
     for i in range(d):
         for j in range(d):
             print(board[i][j], end=' ')
         print()
 
+    # print lower border
     for i in range(d):
         print("==", end='')
     print()
@@ -46,33 +49,61 @@ def gen_board(d: int, n: int):
     return board
 
 
+def query(q, board):
+    """
+    Given a position and board as input
+    returns 'M' if there is a mine at pos
+    and returns the number of surrounding mines otherwise
+
+    q - position on board to query
+    board - 2D list of mine locations
+    """
+
+    # if a mine exists at q return M
+    if(board[q[0]][q[1]] == 1):
+        return 'M'
+
+    count = 0
+    d = len(board)
+
+    # iterate over 8 surrounding board locations
+    for i in range(len(nearby_offsets)):
+        offset_i, offset_j = nearby_offsets[i]
+        pos = (q[0] + offset_i, q[1]+offset_j)
+
+        # if pos is out of bounds, continue
+        if(pos[0] < 0 or pos[0] >= d or pos[1] < 0 or pos[1] >= d):
+            continue
+        count += board[pos[0]][pos[1]]
+
+    # return number of surrounding mines
+    return count
+
+
 d = 5
-board = gen_board(d, 10)
+board = gen_board(d, 5)
 kb = [["?" for i in range(d)] for j in range(d)]
+score = 0
+revealed = 0
+
 while(True):
     print_board(kb)
     q = (int(input("Query X: ")), int(input("Query Y: ")))
-    score = 0
+
+    if(kb[q[0]][q[1]] != '?'):
+        print("ERROR that location has already been queried")
+        continue
+
+    kb[q[0]][q[1]] = query(q, board)
+    revealed += 1
 
     if(input("Flag as Mine(Y/N): ") == 'Y'):
-        if(board[q[0]][q[1]] == 1):
-            kb[q[0]][q[1]] = 'M'
+        if(kb[q[0]][q[1]] == 'M'):
             score += 1
         else:
             print("ERROR flagged a clear space")
             break
 
-    if(board[q[0]][q[1]] == 1):
-        kb[q[0]][q[1]] = 'M'
-    else:
-        count = 0
-        for i in range(8):
-            offset_i, offset_j = nearby_offsets[i]
-            pos = (q[0] + offset_i, q[1]+offset_j)
-
-            print(pos)
-            if(pos[0] < 0 or pos[0] >= d or pos[1] < 0 or pos[1] >= d):
-                continue
-            count += board[pos[0]][pos[1]]
-
-        kb[q[0]][q[1]] = count
+    if(revealed == d**2):
+        print("Congratulations! Score: "+str(score))
+        break
