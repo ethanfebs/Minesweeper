@@ -34,7 +34,7 @@ def print_kb(kb):
     """
     Prints kb in 2D format
 
-    kb - 4 2D arrays
+    kb - knowledge base of 4 2D arrays
     """
     d = len(kb[0])
 
@@ -87,20 +87,44 @@ def init_kb(d: int):
     """
     Generates an empty knowledge base for a board of size d
 
+    kb stores 4 dxd lists of values where
+    kb[0] represents the current board state
+        kb[0][i][j] = '?' if (i,j) is covered
+        kb[0][i][j] = 'M' if (i,j) is an uncovered mine
+        if (i,j) is uncovered and safe kb[0][i][j] is the clue value
+            for that location, i.e. the number of mines surrounding it
+
+    kb[1] stores the number of safe sqaures identified where
+        kb[1][i][j] is the number of safe squares around (i,j)
+
+    kb[2] stores the number of mines identified where
+        kb[2][i][j] is the number of mines around (i,j)
+
+    kb[3] stores the number of surrounding hidden squares where
+        kb[3][i][j] is the number of hidden squares around (i,j)
+
+    kb - knowledge base of 4 2D arrays
     d - dimension of the board
     """
+
+    # all cells are uncovered to start
+    # all cells have no known adjacent safe squares to start
+    # all cells have no known adjacenet mines to start
+    # every adjacent cell is hidden to start
 
     kb = [[["?" for i in range(d)] for j in range(d)],
           [[0 for i in range(d)] for j in range(d)],
           [[0 for i in range(d)] for j in range(d)],
           [[8 for i in range(d)] for j in range(d)]]
 
+    # edge cells have only 5 neighbors
     for i in range(d):
         kb[3][0][i] -= 3
         kb[3][i][0] -= 3
         kb[3][d-1][i] -= 3
         kb[3][i][d-1] -= 3
 
+    # corner cells have only 3 neighbors
     kb[3][0][0] += 1
     kb[3][0][d-1] += 1
     kb[3][d-1][0] += 1
@@ -110,11 +134,23 @@ def init_kb(d: int):
 
 
 def num_neighbors(q, d):
+    """
+    Given a position q, calculate 
+    the total number of its neighbors
+
+    q - position on board
+    d - dimension of board
+    """
+
+    # if q is in a corner, it has 3 neighbors
     if(q == (0, 0) or q == (0, d-1) or q == (d-1, 0) or q == (d-1, d-1)):
         return 3
+
+    # if q is on an edge, it has 5 neighbors
     if(q[0] == 0 or q[0] == d-1 or q[1] == 0 or q[1] == d-1):
         return 5
 
+    # all other positions have 8 neighbors
     return 8
 
 
@@ -125,7 +161,7 @@ def first_hidden(q, kb):
     surrounding that position
 
     q - a position on the board
-    kb - set of 4 2D arrays
+    kb - knowledge base of 4 2D arrays
     """
 
     d = len(kb[0])
@@ -139,6 +175,7 @@ def first_hidden(q, kb):
         if(pos[0] < 0 or pos[0] >= d or pos[1] < 0 or pos[1] >= d):
             continue
 
+        # when a hidden position is found, return it
         if(kb[0][pos[0]][pos[1]] == '?'):
             return pos
 
@@ -178,38 +215,43 @@ def query(q, board):
     return count
 
 
-def decide_query(kb):
+def decide_query_basic(kb):
     """
     Given our knowledge base, decide which location to query next
     and identify if that location should be flagged as a mine
 
-    kb - knowledge base - set of 4 2D arrays
+    kb - knowledge base of 4 2D arrays
     """
 
     flag_mine = False
     d = len(kb[0])
 
-    # If, for a given cell, the total number of mines (the clue)
-    # minus the number of revealed mines
-    # is the number of hidden neighbors, every hidden neighbor is a mine.
-
-    # If, for a given cell, the total number of safe neighbors (8 - clue)
-    # minus the number of revealed safe neighbors
-    # is the number of hidden neighbors, every hidden neighbor is safe.
-
+    # iterate over all board spaces to search for basic inferences
     for i in range(d):
         for j in range(d):
             clue = kb[0][i][j]
+
+            # basic inferences can only be made on safe uncovered cells
             if(clue != 'M' and clue != '?'):
+
+                # INFERENCE TYPE 1: If, for a given cell, the total number of mines (the clue)
+                # minus the number of revealed mines
+                # is the number of hidden neighbors, every hidden neighbor is a mine.
+
                 if((kb[3][i][j] != 0) and (clue - kb[2][i][j]) == kb[3][i][j]):
                     print("FOUND INFERENCE 1 AT ("+str(i)+", "+str(j)+")")
                     return (first_hidden((i, j), kb), True)
+
+                # INFERENCE TYPE 2: If, for a given cell, the total number of safe neighbors (neighbors - clue)
+                # minus the number of revealed safe neighbors
+                # is the number of hidden neighbors, every hidden neighbor is safe.
+
                 if((kb[3][i][j] != 0) and (num_neighbors((i, j), d) - clue - kb[1][i][j]) == kb[3][i][j]):
                     print("FOUND INFERENCE 2 AT ("+str(i)+", "+str(j)+")")
                     return (first_hidden((i, j), kb), False)
 
     # If no hidden cell can be conclusively identified as a mine or safe,
-    # # pick a cell to reveal uniformly at random fromthe remaining cells.
+    # pick a cell to reveal uniformly at random fromthe remaining cells.
 
     covered = []
 
@@ -222,6 +264,7 @@ def decide_query(kb):
     # choose a random covered location to query
     q = random.choice(covered)
 
+    # code for playable game
     # q = (int(input("Query X: ")), int(input("Query Y: ")))
     # if(input("Flag as Mine(Y/N): ") == 'Y'):
     #     flag_mine = True
@@ -234,7 +277,7 @@ def update_kb(kb, q, val: chr):
     Given a location and its newly revealed value,
     update the kb appropriately
 
-    kb - knowledge base
+    kb - knowledge base of 4 2D arrays
     q - position on board that was queried
     val - return value of query
     """
@@ -264,31 +307,39 @@ def update_kb(kb, q, val: chr):
 
 
 d = 5
-num_mines = 5
+num_mines = 4
 board = gen_board(d, num_mines)
 kb = init_kb(d)
 
 score = 0
 revealed = 0
 
+# loop until all cells have been uncovered
 while(True):
     print_kb(kb)
-    q, flag_mine = decide_query(kb)
 
+    # decide which cell to uncover and whether it should be flagged as a mine
+    q, flag_mine = decide_query_basic(kb)
+
+    # agent should never choose to uncover an already uncovered cell
     if(kb[0][q[0]][q[1]] != '?'):
         print("ERROR that location has already been queried")
         continue
 
+    # query at location q and update kb accordingly
     kb = update_kb(kb, q, query(q, board))
     revealed += 1
 
     if(flag_mine):
+        # if a mine is correctly flagged, increment score by 1
         if(kb[0][q[0]][q[1]] == 'M'):
             score += 1
+        # agent should never incorrectly flag a cell
         else:
             print("ERROR flagged a clear space")
             break
 
+    # when all cells are uncovered, display score and end game
     if(revealed == d**2):
         print_board(kb[0])
         print("Congratulations! Score: "+str(score)+"/"+str(num_mines))
