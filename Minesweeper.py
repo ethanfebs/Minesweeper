@@ -239,7 +239,7 @@ def decide_query_basic(kb):
                 # is the number of hidden neighbors, every hidden neighbor is a mine.
 
                 if((kb[3][i][j] != 0) and (clue - kb[2][i][j]) == kb[3][i][j]):
-                    print("FOUND INFERENCE 1 AT ("+str(i)+", "+str(j)+")")
+                    # print("FOUND INFERENCE 1 AT ("+str(i)+", "+str(j)+")")
                     return (first_hidden((i, j), kb), True)
 
                 # INFERENCE TYPE 2: If, for a given cell, the total number of safe neighbors (neighbors - clue)
@@ -247,7 +247,7 @@ def decide_query_basic(kb):
                 # is the number of hidden neighbors, every hidden neighbor is safe.
 
                 if((kb[3][i][j] != 0) and (num_neighbors((i, j), d) - clue - kb[1][i][j]) == kb[3][i][j]):
-                    print("FOUND INFERENCE 2 AT ("+str(i)+", "+str(j)+")")
+                    # print("FOUND INFERENCE 2 AT ("+str(i)+", "+str(j)+")")
                     return (first_hidden((i, j), kb), False)
 
     # If no hidden cell can be conclusively identified as a mine or safe,
@@ -283,6 +283,7 @@ def update_kb(kb, q, val: chr):
     """
 
     kb[0][q[0]][q[1]] = val
+    d = len(kb[0])
 
     # iterate over 8 surrounding board locations
     for i in range(len(nearby_offsets)):
@@ -306,41 +307,52 @@ def update_kb(kb, q, val: chr):
     return kb
 
 
-d = 5
-num_mines = 4
-board = gen_board(d, num_mines)
-kb = init_kb(d)
+def run_game(d, num_mines):
+    board = gen_board(d, num_mines)
+    kb = init_kb(d)
 
-score = 0
-revealed = 0
+    score = 0
+    revealed = 0
 
-# loop until all cells have been uncovered
-while(True):
-    print_kb(kb)
+    # loop until all cells have been uncovered
+    while(True):
+        # print_kb(kb)
 
-    # decide which cell to uncover and whether it should be flagged as a mine
-    q, flag_mine = decide_query_basic(kb)
+        # decide which cell to uncover and whether it should be flagged as a mine
+        q, flag_mine = decide_query_basic(kb)
 
-    # agent should never choose to uncover an already uncovered cell
-    if(kb[0][q[0]][q[1]] != '?'):
-        print("ERROR that location has already been queried")
-        continue
+        # agent should never choose to uncover an already uncovered cell
+        if(kb[0][q[0]][q[1]] != '?'):
+            print("ERROR that location has already been queried")
+            continue
 
-    # query at location q and update kb accordingly
-    kb = update_kb(kb, q, query(q, board))
-    revealed += 1
+        # query at location q and update kb accordingly
+        kb = update_kb(kb, q, query(q, board))
+        revealed += 1
 
-    if(flag_mine):
-        # if a mine is correctly flagged, increment score by 1
-        if(kb[0][q[0]][q[1]] == 'M'):
-            score += 1
-        # agent should never incorrectly flag a cell
-        else:
-            print("ERROR flagged a clear space")
+        if(flag_mine):
+            # if a mine is correctly flagged, increment score by 1
+            if(kb[0][q[0]][q[1]] == 'M'):
+                score += 1
+            # agent should never incorrectly flag a cell
+            else:
+                print("ERROR flagged a clear space")
+                break
+
+        # when all cells are uncovered, display score and end game
+        if(revealed == d**2):
+            # print_board(kb[0])
+            # print("Congratulations! Score: "+str(score)+"/"+str(num_mines))
+            return score
             break
 
-    # when all cells are uncovered, display score and end game
-    if(revealed == d**2):
-        print_board(kb[0])
-        print("Congratulations! Score: "+str(score)+"/"+str(num_mines))
-        break
+
+sum = 0
+tests = 100
+dim = 25
+mines = 150
+for i in range(tests):
+    sum += run_game(dim, mines)
+
+avg = sum/(tests)
+print('Basic Avg(dim='+str(dim)+'): '+str(avg)+'/'+str(mines)+' mines')

@@ -1,8 +1,11 @@
 import random
 import copy
 
-nearby_offsets = [(-1, 0), (0, 1), (1, 0), (0, -1),
-                  (-1, -1), (-1, 1), (1, -1), (1, 1)]
+nearby_offsets = [(-1, -1), (-1, 0), (-1, 1), (0, -1),
+                  (0, 1), (1, -1), (1, 0), (1, 1)]
+
+CRED = '\033[91m'
+CEND = '\033[0m'
 
 
 def print_board(board):
@@ -21,7 +24,10 @@ def print_board(board):
     # print 2D list
     for i in range(d):
         for j in range(d):
-            print(board[i][j], end=' ')
+            if(board[i][j] == 'M'):
+                print(CRED + "M" + CEND, end=' ')
+            else:
+                print(board[i][j], end=' ')
         print()
 
     # print lower border
@@ -50,7 +56,10 @@ def print_screen(screen):
     for i in range(d):
         for k in range(4):
             for j in range(d):
-                print(screen[k][i][j], end=' ')
+                if(screen[k][i][j] == 'M'):
+                    print(CRED + "M" + CEND, end=' ')
+                else:
+                    print(screen[k][i][j], end=' ')
             print(' ', end='')
         print()
 
@@ -70,7 +79,7 @@ def print_kb(kb):
     print()
     print('---Knowledge Base---')
     for eq in kb:
-        x, constraint = eq
+        x, constraint = eq[0], eq[1]
         print(x, end=' ')
         print('='+str(constraint))
     print('--------------------')
@@ -240,7 +249,7 @@ def decide_query_basic(screen, kb):
     decision_queue = []
 
     for eq in kb:
-        x, constraint = eq
+        x, constraint = eq[0], eq[1]
 
         # INFERENCE TYPE 1: If, for a given cell, the total number of mines (the clue)
         # minus the number of revealed mines
@@ -248,7 +257,8 @@ def decide_query_basic(screen, kb):
 
         if(len(x) == constraint):
             for q in x:
-                decision_queue.append((q, True))
+                if((q, True) not in decision_queue):
+                    decision_queue.append((q, True))
 
         # INFERENCE TYPE 2: If, for a given cell, the total number of safe neighbors (neighbors - clue)
         # minus the number of revealed safe neighbors
@@ -256,7 +266,8 @@ def decide_query_basic(screen, kb):
 
         if(constraint == 0):
             for q in x:
-                decision_queue.append((q, False))
+                if((q, False) not in decision_queue):
+                    decision_queue.append((q, False))
 
     if(len(decision_queue) > 0):
         return decision_queue
@@ -320,20 +331,25 @@ def update_kb(screen, kb, q, val: chr):
     """
 
     screen[0][q[0]][q[1]] = val
+    d = len(screen[0])
 
+    # update equations with new val
     for eq in kb:
-        x, constraint = eq
+        x, constraint = eq[0], eq[1]
         if(q in x):
             x.remove(q)
             if(val == 'M'):
-                eq = [x, constraint-1]
+                eq[1] -= 1
 
+    # remove zero sets
     kb = [eq for eq in kb if not len(eq[0]) == 0]
 
     # create new equation
     if(val != 'M'):
         x = set()
-        eq = [x, val]
+        eq = list()
+        eq.append(x)
+        eq.append(val)
 
         for i in range(len(nearby_offsets)):
             offset_i, offset_j = nearby_offsets[i]
@@ -362,7 +378,7 @@ def update_kb(screen, kb, q, val: chr):
             if(s1.issubset(s2)):
                 s2 -= s1
                 c2 -= c1
-                kb[y] = (s2, c2)
+                kb[y] = [s2, c2]
 
     # remove zero sets again
     kb = [eq for eq in kb if not len(eq[0]) == 0]
@@ -389,47 +405,61 @@ def update_kb(screen, kb, q, val: chr):
     return screen, kb
 
 
-d = 5
-num_mines = 4
-board = gen_board(d, num_mines)
-screen = init_kb(d)
-kb = list()
-decision_queue = []
+def run_game(d, num_mines):
+    board = gen_board(d, num_mines)
+    screen = init_kb(d)
+    kb = list()
+    decision_queue = []
 
-score = 0
-revealed = 0
+    score = 0
+    revealed = 0
 
-# loop until all cells have been uncovered
-while(True):
-    print_screen(screen)
-    print_kb(kb)
+    # loop until all cells have been uncovered
+    while(True):
 
-    # decide which cell to uncover and whether it should be flagged as a mine
-    decision_queue = decide_query_basic(screen, kb)
+        # decide which cell to uncover and whether it should be flagged as a mine
+        decision_queue = decide_query_basic(screen, kb)
 
-    # query at location q and update kb accordingly
-    while(len(decision_queue) > 0):
-        q, flag_mine = decision_queue.pop(0)
+        # query at location q and update kb accordingly
+        while(len(decision_queue) > 0):
 
-        # agent should never choose to uncover an already uncovered cell
-        if(screen[0][q[0]][q[1]] != '?'):
-            print("ERROR that location has already been queried")
-            continue
+            # print_screen(screen)
+            # print_kb(kb)
+            # print('Decision Queue: '+str(decision_queue))
 
-        screen, kb = update_kb(screen, kb, q, query(q, board))
-        revealed += 1
+            q, flag_mine = decision_queue.pop(0)
 
-        if(flag_mine):
-            # if a mine is correctly flagged, increment score by 1
-            if(screen[0][q[0]][q[1]] == 'M'):
-                score += 1
-            # agent should never incorrectly flag a cell
-            else:
-                print("ERROR flagged a clear space")
-                break
+            # agent should never choose to uncover an already uncovered cell
+            if(screen[0][q[0]][q[1]] != '?'):
+                print("ERROR that location has already been queried")
+                continue
 
-    # when all cells are uncovered, display score and end game
-    if(revealed == d**2):
-        print_board(screen[0])
-        print("Congratulations! Score: "+str(score)+"/"+str(num_mines))
-        break
+            screen, kb = update_kb(screen, kb, q, query(q, board))
+            revealed += 1
+
+            if(flag_mine):
+                # if a mine is correctly flagged, increment score by 1
+                if(screen[0][q[0]][q[1]] == 'M'):
+                    score += 1
+                # agent should never incorrectly flag a cell
+                else:
+                    print("ERROR flagged a clear space")
+                    break
+
+        # when all cells are uncovered, display score and end game
+        if(revealed == d**2):
+            # print_board(screen[0])
+            # print("Congratulations! Score: "+str(score)+"/"+str(num_mines))
+            return score
+            break
+
+
+sum = 0
+tests = 100
+dim = 25
+mines = 150
+for i in range(tests):
+    sum += run_game(dim, mines)
+
+avg = sum/(tests)
+print('Advanced Avg(dim='+str(dim)+'): '+str(avg)+'/'+str(mines)+' mines')
