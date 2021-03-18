@@ -1,8 +1,11 @@
 import random
 import copy
 
-nearby_offsets = [(-1, 0), (0, 1), (1, 0), (0, -1),
-                  (-1, -1), (-1, 1), (1, -1), (1, 1)]
+nearby_offsets = [(-1, -1), (-1, 0), (-1, 1), (0, -1),
+                  (0, 1), (1, -1), (1, 0), (1, 1)]
+
+CRED = '\033[91m'
+CEND = '\033[0m'
 
 
 def print_board(board):
@@ -21,7 +24,10 @@ def print_board(board):
     # print 2D list
     for i in range(d):
         for j in range(d):
-            print(board[i][j], end=' ')
+            if(board[i][j] == 'M'):
+                print(CRED + "M" + CEND, end=' ')
+            else:
+                print(board[i][j], end=' ')
         print()
 
     # print lower border
@@ -30,13 +36,13 @@ def print_board(board):
     print()
 
 
-def print_kb(kb):
+def print_screen(screen):
     """
-    Prints kb in 2D format
+    Prints screen in 2D format
 
-    kb - knowledge base of 4 2D arrays
+    screen - knowledge base of 4 2D arrays
     """
-    d = len(kb[0])
+    d = len(screen[0])
 
     # print upper border
     for i in range(4):
@@ -50,7 +56,10 @@ def print_kb(kb):
     for i in range(d):
         for k in range(4):
             for j in range(d):
-                print(kb[k][i][j], end=' ')
+                if(screen[k][i][j] == 'M'):
+                    print(CRED + "M" + CEND, end=' ')
+                else:
+                    print(screen[k][i][j], end=' ')
             print(' ', end='')
         print()
 
@@ -61,6 +70,19 @@ def print_kb(kb):
         print(' ', end='')
 
     print()
+
+
+def print_kb(kb):
+    """
+    """
+
+    print()
+    print('---Knowledge Base---')
+    for eq in kb:
+        x, constraint = eq[0], eq[1]
+        print(x, end=' ')
+        print('='+str(constraint))
+    print('--------------------')
 
 
 def gen_board(d: int, n: int):
@@ -215,7 +237,7 @@ def query(q, board):
     return count
 
 
-def decide_query_basic(kb):
+def decide_query_basic(screen, kb):
     """
     Given our knowledge base, decide which location to query next
     and identify if that location should be flagged as a mine
@@ -223,32 +245,56 @@ def decide_query_basic(kb):
     kb - knowledge base of 4 2D arrays
     """
 
-    flag_mine = False
-    d = len(kb[0])
+    d = len(screen[0])
+    decision_queue = []
 
-    # iterate over all board spaces to search for basic inferences
-    for i in range(d):
-        for j in range(d):
-            clue = kb[0][i][j]
+    for eq in kb:
+        x, constraint = eq[0], eq[1]
 
-            # basic inferences can only be made on safe uncovered cells
-            if(clue != 'M' and clue != '?'):
+        # INFERENCE TYPE 1: If, for a given cell, the total number of mines (the clue)
+        # minus the number of revealed mines
+        # is the number of hidden neighbors, every hidden neighbor is a mine.
 
-                # INFERENCE TYPE 1: If, for a given cell, the total number of mines (the clue)
-                # minus the number of revealed mines
-                # is the number of hidden neighbors, every hidden neighbor is a mine.
+        if(len(x) == constraint):
+            for q in x:
+                if((q, True) not in decision_queue):
+                    decision_queue.append((q, True))
 
-                if((kb[3][i][j] != 0) and (clue - kb[2][i][j]) == kb[3][i][j]):
-                    # print("FOUND INFERENCE 1 AT ("+str(i)+", "+str(j)+")")
-                    return (first_hidden((i, j), kb), True)
+        # INFERENCE TYPE 2: If, for a given cell, the total number of safe neighbors (neighbors - clue)
+        # minus the number of revealed safe neighbors
+        # is the number of hidden neighbors, every hidden neighbor is safe.
 
-                # INFERENCE TYPE 2: If, for a given cell, the total number of safe neighbors (neighbors - clue)
-                # minus the number of revealed safe neighbors
-                # is the number of hidden neighbors, every hidden neighbor is safe.
+        if(constraint == 0):
+            for q in x:
+                if((q, False) not in decision_queue):
+                    decision_queue.append((q, False))
 
-                if((kb[3][i][j] != 0) and (num_neighbors((i, j), d) - clue - kb[1][i][j]) == kb[3][i][j]):
-                    # print("FOUND INFERENCE 2 AT ("+str(i)+", "+str(j)+")")
-                    return (first_hidden((i, j), kb), False)
+    if(len(decision_queue) > 0):
+        return decision_queue
+
+    # # iterate over all board spaces to search for basic inferences
+    # for i in range(d):
+    #     for j in range(d):
+    #         clue = screen[0][i][j]
+
+    #         # basic inferences can only be made on safe uncovered cells
+    #         if(clue != 'M' and clue != '?'):
+
+    #             # INFERENCE TYPE 1: If, for a given cell, the total number of mines (the clue)
+    #             # minus the number of revealed mines
+    #             # is the number of hidden neighbors, every hidden neighbor is a mine.
+
+    #             if((screen[3][i][j] != 0) and (clue - screen[2][i][j]) == screen[3][i][j]):
+    #                 print("FOUND INFERENCE 1 AT ("+str(i)+", "+str(j)+")")
+    #                 return (first_hidden((i, j), screen), True)
+
+    #             # INFERENCE TYPE 2: If, for a given cell, the total number of safe neighbors (neighbors - clue)
+    #             # minus the number of revealed safe neighbors
+    #             # is the number of hidden neighbors, every hidden neighbor is safe.
+
+    #             if((screen[3][i][j] != 0) and (num_neighbors((i, j), d) - clue - screen[1][i][j]) == screen[3][i][j]):
+    #                 print("FOUND INFERENCE 2 AT ("+str(i)+", "+str(j)+")")
+    #                 return (first_hidden((i, j), screen), False)
 
     # If no hidden cell can be conclusively identified as a mine or safe,
     # pick a cell to reveal uniformly at random fromthe remaining cells.
@@ -256,7 +302,7 @@ def decide_query_basic(kb):
     covered = []
 
     # find every covered location (i,j) on the board
-    for i, x in enumerate(kb[0]):
+    for i, x in enumerate(screen[0]):
         for j, y in enumerate(x):
             if(y == '?'):
                 covered.append((i, j))
@@ -264,15 +310,17 @@ def decide_query_basic(kb):
     # choose a random covered location to query
     q = random.choice(covered)
 
+    decision_queue.append((q, False))
+
     # code for playable game
     # q = (int(input("Query X: ")), int(input("Query Y: ")))
     # if(input("Flag as Mine(Y/N): ") == 'Y'):
     #     flag_mine = True
 
-    return (q, flag_mine)
+    return decision_queue
 
 
-def update_kb(kb, q, val: chr):
+def update_kb(screen, kb, q, val: chr):
     """
     Given a location and its newly revealed value,
     update the kb appropriately
@@ -282,8 +330,58 @@ def update_kb(kb, q, val: chr):
     val - return value of query
     """
 
-    kb[0][q[0]][q[1]] = val
-    d = len(kb[0])
+    screen[0][q[0]][q[1]] = val
+    d = len(screen[0])
+
+    # update equations with new val
+    for eq in kb:
+        x, constraint = eq[0], eq[1]
+        if(q in x):
+            x.remove(q)
+            if(val == 'M'):
+                eq[1] -= 1
+
+    # remove zero sets
+    kb = [eq for eq in kb if not len(eq[0]) == 0]
+
+    # create new equation
+    if(val != 'M'):
+        x = set()
+        eq = list()
+        eq.append(x)
+        eq.append(val)
+
+        for i in range(len(nearby_offsets)):
+            offset_i, offset_j = nearby_offsets[i]
+            pos = (q[0] + offset_i, q[1]+offset_j)
+
+            # if pos is out of bounds, continue
+            if(pos[0] < 0 or pos[0] >= d or pos[1] < 0 or pos[1] >= d):
+                continue
+
+            if(screen[0][pos[0]][pos[1]] == '?'):
+                eq[0].add(pos)
+
+            if(screen[0][pos[0]][pos[1]] == 'M'):
+                eq[1] -= 1
+
+        kb.append(eq)
+
+    # check for subsets
+    for x in range(len(kb)):
+        for y in range(len(kb)):
+            if(x == y):
+                continue
+            s1, c1 = kb[x]
+            s2, c2 = kb[y]
+
+            if(s1.issubset(s2)):
+                s2 -= s1
+                c2 -= c1
+                kb[y] = [s2, c2]
+
+    # remove zero sets again
+    kb = [eq for eq in kb if not len(eq[0]) == 0]
 
     # iterate over 8 surrounding board locations
     for i in range(len(nearby_offsets)):
@@ -296,52 +394,61 @@ def update_kb(kb, q, val: chr):
 
         # if val is not a mine, number of identified safe squares increases by 1
         if(val != 'M'):
-            kb[1][pos[0]][pos[1]] += 1
+            screen[1][pos[0]][pos[1]] += 1
         # if val IS a mine, number of identified mines increases by 1
         else:
-            kb[2][pos[0]][pos[1]] += 1
+            screen[2][pos[0]][pos[1]] += 1
 
         # number of hidden squares decreases by 1
-        kb[3][pos[0]][pos[1]] -= 1
+        screen[3][pos[0]][pos[1]] -= 1
 
-    return kb
+    return screen, kb
 
 
 def run_game(d, num_mines):
     board = gen_board(d, num_mines)
-    kb = init_kb(d)
+    screen = init_kb(d)
+    kb = list()
+    decision_queue = []
 
     score = 0
     revealed = 0
 
     # loop until all cells have been uncovered
     while(True):
-        # print_kb(kb)
 
         # decide which cell to uncover and whether it should be flagged as a mine
-        q, flag_mine = decide_query_basic(kb)
-
-        # agent should never choose to uncover an already uncovered cell
-        if(kb[0][q[0]][q[1]] != '?'):
-            print("ERROR that location has already been queried")
-            continue
+        decision_queue = decide_query_basic(screen, kb)
 
         # query at location q and update kb accordingly
-        kb = update_kb(kb, q, query(q, board))
-        revealed += 1
+        while(len(decision_queue) > 0):
 
-        if(flag_mine):
-            # if a mine is correctly flagged, increment score by 1
-            if(kb[0][q[0]][q[1]] == 'M'):
-                score += 1
-            # agent should never incorrectly flag a cell
-            else:
-                print("ERROR flagged a clear space")
-                break
+            # print_screen(screen)
+            # print_kb(kb)
+            # print('Decision Queue: '+str(decision_queue))
+
+            q, flag_mine = decision_queue.pop(0)
+
+            # agent should never choose to uncover an already uncovered cell
+            if(screen[0][q[0]][q[1]] != '?'):
+                print("ERROR that location has already been queried")
+                continue
+
+            screen, kb = update_kb(screen, kb, q, query(q, board))
+            revealed += 1
+
+            if(flag_mine):
+                # if a mine is correctly flagged, increment score by 1
+                if(screen[0][q[0]][q[1]] == 'M'):
+                    score += 1
+                # agent should never incorrectly flag a cell
+                else:
+                    print("ERROR flagged a clear space")
+                    break
 
         # when all cells are uncovered, display score and end game
         if(revealed == d**2):
-            # print_board(kb[0])
+            # print_board(screen[0])
             # print("Congratulations! Score: "+str(score)+"/"+str(num_mines))
             return score
             break
@@ -355,4 +462,4 @@ for i in range(tests):
     sum += run_game(dim, mines)
 
 avg = sum/(tests)
-print('Basic Avg(dim='+str(dim)+'): '+str(avg)+'/'+str(mines)+' mines')
+print('Advanced Avg(dim='+str(dim)+'): '+str(avg)+'/'+str(mines)+' mines')
