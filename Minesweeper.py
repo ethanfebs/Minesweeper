@@ -346,13 +346,13 @@ def run_game(d, num_mines):
             return score
             break
 
+if __name__ == "__main__":
+    sum = 0
+    tests = 100
+    dim = 25
+    mines = 150
+    for i in range(tests):
+        sum += run_game(dim, mines)
 
-sum = 0
-tests = 100
-dim = 25
-mines = 150
-for i in range(tests):
-    sum += run_game(dim, mines)
-
-avg = sum/(tests)
-print('Basic Avg(dim='+str(dim)+'): '+str(avg)+'/'+str(mines)+' mines')
+    avg = sum/(tests)
+    print('Basic Avg(dim='+str(dim)+'): '+str(avg)+'/'+str(mines)+' mines')

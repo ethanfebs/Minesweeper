@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.9.20)  20 MAR 2021 23:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.9.20)  21 MAR 2021 21:09
 entering extended mode
 **"d:/Desktop - HDD/CS440/Minesweeper/pdf/project2.tex"
 ("d:/Desktop - HDD/CS440/Minesweeper/pdf/project2.tex"
@@ -126,13 +126,20 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/fancyvrb\fancyvrb.sty
+)) (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count191
+\float@exts=\toks28
+\float@box=\box47
+\@float@everytoks=\toks29
+\@floatcapt=\box48
+) (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/fancyvrb\fancyvrb.sty
 Package: fancyvrb 2021/01/20 v3.7 verbatim text (tvz,hv)
-\FV@CodeLineNo=\count191
+\FV@CodeLineNo=\count192
 \FV@InFile=\read2
-\FV@TabBox=\box47
-\c@FancyVerbLine=\count192
-\FV@StepNumber=\count193
+\FV@TabBox=\box49
+\c@FancyVerbLine=\count193
+\FV@StepNumber=\count194
 \FV@OutFile=\write3
 ) (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/newverbs\newverbs.sty
 Package: newverbs 2010/09/02 v1.5 Define new 'verb' commands and short verb. characters
@@ -160,10 +167,10 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 Package: enumitem 2019/06/20 v3.9 Customized lists
 \labelindent=\skip64
 \enit@outerparindent=\dimen152
-\enit@toks=\toks28
-\enit@inbox=\box48
-\enit@count@id=\count194
-\enitdp@description=\count195
+\enit@toks=\toks30
+\enit@inbox=\box50
+\enit@count@id=\count195
+\enitdp@description=\count196
 ) (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
  (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
@@ -179,25 +186,25 @@ Package graphics Info: Driver file: pdftex.def on input line 105.
 \Gin@req@width=\dimen154
 ) (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2020-09-01 L3 backend support: PDF output (pdfTeX)
-\l__kernel_color_stack_int=\count196
-\l__pdf_internal_box=\box49
+\l__kernel_color_stack_int=\count197
+\l__pdf_internal_box=\box51
 ) ("d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.aux")
 \openout1 = `project2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -235,26 +242,26 @@ LaTeX Font Info:    ... okay on input line 69.
 
 (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count197
+\scratchcounter=\count198
 \scratchdimen=\dimen155
-\scratchbox=\box50
-\nofMPsegments=\count198
-\nofMParguments=\count199
-\everyMPshowfont=\toks29
-\MPscratchCnt=\count266
+\scratchbox=\box52
+\nofMPsegments=\count199
+\nofMParguments=\count266
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count267
 \MPscratchDim=\dimen156
-\MPnumerator=\count267
-\makeMPintoPDFobject=\count268
-\everyMPtoPDFconversion=\toks30
+\MPnumerator=\count268
+\makeMPintoPDFobject=\count269
+\everyMPtoPDFconversion=\toks32
 ) (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 80.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 81.
  (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 80.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 81.
  (C:\Users\725ma\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) ("d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.toc")
@@ -263,19 +270,36 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  [1
 
-{C:/Users/725ma/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2] [3] ("d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.aux") ) 
+{C:/Users/725ma/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+Underfull \vbox (badness 1221) has occurred while \output is active []
+
+ [2]
+<../graphs/Basic Algorithm.png, id=14, 770.3982pt x 433.62pt>
+File: ../graphs/Basic Algorithm.png Graphic file (type png)
+<use ../graphs/Basic Algorithm.png>
+Package pdftex.def Info: ../graphs/Basic Algorithm.png  used on input line 124.
+(pdftex.def)             Requested size: 423.72032pt x 238.49173pt.
+<../graphs/Advanced Algorithm.png, id=16, 770.3982pt x 433.62pt>
+File: ../graphs/Advanced Algorithm.png Graphic file (type png)
+<use ../graphs/Advanced Algorithm.png>
+Package pdftex.def Info: ../graphs/Advanced Algorithm.png  used on input line 128.
+(pdftex.def)             Requested size: 423.72032pt x 238.49173pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3 <../graphs/Basic Algorithm.png>] [4 <../graphs/Advanced Algorithm.png>] [5] ("d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.aux") ) 
 Here is how much of TeX's memory you used:
- 4287 strings out of 481199
- 59151 string characters out of 2905595
- 313661 words of memory out of 3000000
- 19848 multiletter control sequences out of 15000+200000
+ 4360 strings out of 481199
+ 60341 string characters out of 2905595
+ 317058 words of memory out of 3000000
+ 19913 multiletter control sequences out of 15000+200000
  543891 words of font info for 63 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,11n,45p,775b,205s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,11n,45p,775b,357s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on "d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.pdf" (3 pages, 76981 bytes).
+Output written on "d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.pdf" (5 pages, 145614 bytes).
 PDF statistics:
- 36 PDF objects out of 1000 (max. 8388607)
+ 47 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
