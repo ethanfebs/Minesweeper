@@ -191,7 +191,7 @@ We, Ryan Mao and Ethan Febinger, certify that the code and report for this assig
 
         This makes sense for the advanced algorithm to do slightly better than the basic algorithm, as it is performing more induction, and attempting to `reason' using logic and finding contradictions.
 
-        Minesweeper becomes `hard' for both algorithms at around \textbf{INSERT VALUE}.
+        Minesweeper becomes `hard' for both algorithms at around a mine density value of $0.6$ where both algorithms perform practically the same.
 
         There is not a time where the simple algorithm is better. The advanced algorithm is either better by a small margin, or the same. This liens up with our prediction/algorithm since the advanced algorithm performs the basic algorithm logic until it has to guess. Then it attempts to deduce something by assuming certain cells to be a mine. Depending on whether or not the algorithm then reaches a contradiction, the algorithm can slowly rule out certain cells as mines. If it is unable to deduce anything more, however, it will then make another guess.
 
