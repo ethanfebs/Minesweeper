@@ -307,16 +307,24 @@ def update_kb(kb, q, val: chr):
     return kb
 
 
-def run_game(d, num_mines):
+def run_game(d, num_mines, board = None, play = False):
+    if (not board):
+        board = gen_board(d, num_mines)
     board = gen_board(d, num_mines)
     kb = init_kb(d)
 
     score = 0
     revealed = 0
 
+    playstep = 0
+
     # loop until all cells have been uncovered
     while(True):
         # print_kb(kb)
+        if (play):
+            print(playstep)
+            playstep += 1
+            print_board(kb[0])
 
         # decide which cell to uncover and whether it should be flagged as a mine
         q, flag_mine = decide_query_basic(kb)
@@ -338,6 +346,18 @@ def run_game(d, num_mines):
             else:
                 print("ERROR flagged a clear space")
                 break
+
+        if (play):
+            print(playstep)
+            if (flag_mine):
+                print("FLAG HERE")
+            else:
+                if (board[q[0]][q[1]] == 1):
+                    print("Failed here")
+                    print_board(kb[0])
+                    return
+            playstep += 1
+            print_board(kb[0])
 
         # when all cells are uncovered, display score and end game
         if(revealed == d**2):

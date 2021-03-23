@@ -405,14 +405,17 @@ def update_kb(screen, kb, q, val: chr):
     return screen, kb
 
 
-def run_game(d, num_mines):
-    board = gen_board(d, num_mines)
+def run_game(d, num_mines, board = None, play = False):
+    if (not board):
+        board = gen_board(d, num_mines)
     screen = init_kb(d)
     kb = list()
     decision_queue = []
 
     score = 0
     revealed = 0
+
+    playstep = 0
 
     # loop until all cells have been uncovered
     while(True):
@@ -446,6 +449,18 @@ def run_game(d, num_mines):
                     print("ERROR flagged a clear space")
                     break
 
+            if (play):
+                print(playstep)
+                if (flag_mine):
+                    print("FLAG HERE")
+                else:
+                    if (board[q[0]][q[1]] == 1):
+                        print("Failed here")
+                        print_board(screen[0])
+                        return
+                playstep += 1
+                print_board(screen[0])
+
         # when all cells are uncovered, display score and end game
         if(revealed == d**2):
             # print_board(screen[0])
@@ -457,7 +472,7 @@ if __name__ == "__main__":
     sum = 0
     tests = 100
     dim = 25
-    mines = 1
+    mines = 150
     for i in range(tests):
         sum += run_game(dim, mines)
 

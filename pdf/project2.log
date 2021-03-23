@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.9.20)  21 MAR 2021 21:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.9.20)  22 MAR 2021 21:37
 entering extended mode
 **"d:/Desktop - HDD/CS440/Minesweeper/pdf/project2.tex"
 ("d:/Desktop - HDD/CS440/Minesweeper/pdf/project2.tex"
@@ -270,36 +270,110 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  [1
 
-{C:/Users/725ma/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
-Underfull \vbox (badness 1221) has occurred while \output is active []
-
- [2]
-<../graphs/Basic Algorithm.png, id=14, 770.3982pt x 433.62pt>
-File: ../graphs/Basic Algorithm.png Graphic file (type png)
-<use ../graphs/Basic Algorithm.png>
-Package pdftex.def Info: ../graphs/Basic Algorithm.png  used on input line 124.
-(pdftex.def)             Requested size: 423.72032pt x 238.49173pt.
-<../graphs/Advanced Algorithm.png, id=16, 770.3982pt x 433.62pt>
-File: ../graphs/Advanced Algorithm.png Graphic file (type png)
-<use ../graphs/Advanced Algorithm.png>
-Package pdftex.def Info: ../graphs/Advanced Algorithm.png  used on input line 128.
-(pdftex.def)             Requested size: 423.72032pt x 238.49173pt.
+{C:/Users/725ma/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2] [3] [4]
+<../play_by_play/play_by_play_1.png, id=20, 130.23656pt x 627.09282pt>
+File: ../play_by_play/play_by_play_1.png Graphic file (type png)
+<use ../play_by_play/play_by_play_1.png>
+Package pdftex.def Info: ../play_by_play/play_by_play_1.png  used on input line 136.
+(pdftex.def)             Requested size: 130.23624pt x 627.0913pt.
+<../play_by_play/play_by_play_2.png, id=22, 129.48375pt x 627.84563pt>
+File: ../play_by_play/play_by_play_2.png Graphic file (type png)
+<use ../play_by_play/play_by_play_2.png>
+Package pdftex.def Info: ../play_by_play/play_by_play_2.png  used on input line 140.
+(pdftex.def)             Requested size: 129.48341pt x 627.84409pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [3 <../graphs/Basic Algorithm.png>] [4 <../graphs/Advanced Algorithm.png>] [5] ("d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.aux") ) 
+ [5]
+<../play_by_play/play_by_play_3.png, id=27, 130.23656pt x 628.59843pt>
+File: ../play_by_play/play_by_play_3.png Graphic file (type png)
+<use ../play_by_play/play_by_play_3.png>
+Package pdftex.def Info: ../play_by_play/play_by_play_3.png  used on input line 144.
+(pdftex.def)             Requested size: 130.23624pt x 628.5969pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6 <../play_by_play/play_by_play_1.png>]
+<../play_by_play/play_by_play_4.png, id=32, 130.98938pt x 630.10406pt>
+File: ../play_by_play/play_by_play_4.png Graphic file (type png)
+<use ../play_by_play/play_by_play_4.png>
+Package pdftex.def Info: ../play_by_play/play_by_play_4.png  used on input line 148.
+(pdftex.def)             Requested size: 130.98904pt x 630.10252pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7 <../play_by_play/play_by_play_2.png>]
+<../play_by_play/play_by_play_5.png, id=38, 132.495pt x 641.39626pt>
+File: ../play_by_play/play_by_play_5.png Graphic file (type png)
+<use ../play_by_play/play_by_play_5.png>
+Package pdftex.def Info: ../play_by_play/play_by_play_5.png  used on input line 152.
+(pdftex.def)             Requested size: 132.49466pt x 641.39468pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8 <../play_by_play/play_by_play_3.png>]
+<../play_by_play/play_by_play_6.png, id=43, 131.74219pt x 654.19406pt>
+File: ../play_by_play/play_by_play_6.png Graphic file (type png)
+<use ../play_by_play/play_by_play_6.png>
+Package pdftex.def Info: ../play_by_play/play_by_play_6.png  used on input line 156.
+(pdftex.def)             Requested size: 131.74185pt x 654.19246pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9 <../play_by_play/play_by_play_4.png>]
+<../play_by_play/play_by_play_7.png, id=48, 131.74219pt x 652.68843pt>
+File: ../play_by_play/play_by_play_7.png Graphic file (type png)
+<use ../play_by_play/play_by_play_7.png>
+Package pdftex.def Info: ../play_by_play/play_by_play_7.png  used on input line 160.
+(pdftex.def)             Requested size: 131.74185pt x 652.68684pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [10 <../play_by_play/play_by_play_5.png>]
+Overfull \vbox (3.76245pt too high) has occurred while \output is active []
+
+ [11 <../play_by_play/play_by_play_6.png>]
+<../play_by_play/play_by_play_8.png, id=57, 130.98938pt x 664.73344pt>
+File: ../play_by_play/play_by_play_8.png Graphic file (type png)
+<use ../play_by_play/play_by_play_8.png>
+Package pdftex.def Info: ../play_by_play/play_by_play_8.png  used on input line 164.
+(pdftex.def)             Requested size: 130.98904pt x 664.73183pt.
+
+Overfull \vbox (2.25684pt too high) has occurred while \output is active []
+
+ [12 <../play_by_play/play_by_play_7.png>]
+<../play_by_play/play_by_play_9.png, id=62, 131.74219pt x 470.50781pt>
+File: ../play_by_play/play_by_play_9.png Graphic file (type png)
+<use ../play_by_play/play_by_play_9.png>
+Package pdftex.def Info: ../play_by_play/play_by_play_9.png  used on input line 168.
+(pdftex.def)             Requested size: 131.74185pt x 470.50665pt.
+
+Overfull \vbox (14.30182pt too high) has occurred while \output is active []
+
+ [13 <../play_by_play/play_by_play_8.png>] [14 <../play_by_play/play_by_play_9.png>]
+<../graphs/Basic Algorithm.png, id=72, 770.3982pt x 433.62pt>
+File: ../graphs/Basic Algorithm.png Graphic file (type png)
+<use ../graphs/Basic Algorithm.png>
+Package pdftex.def Info: ../graphs/Basic Algorithm.png  used on input line 183.
+(pdftex.def)             Requested size: 385.19815pt x 216.80946pt.
+<../graphs/Advanced Algorithm.png, id=73, 770.3982pt x 433.62pt>
+File: ../graphs/Advanced Algorithm.png Graphic file (type png)
+<use ../graphs/Advanced Algorithm.png>
+Package pdftex.def Info: ../graphs/Advanced Algorithm.png  used on input line 187.
+(pdftex.def)             Requested size: 385.19815pt x 216.80946pt.
+ [15 <../graphs/Basic Algorithm.png> <../graphs/Advanced Algorithm.png>] [16] [17] [18] ("d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.aux") ) 
 Here is how much of TeX's memory you used:
- 4360 strings out of 481199
- 60341 string characters out of 2905595
- 317058 words of memory out of 3000000
- 19913 multiletter control sequences out of 15000+200000
- 543891 words of font info for 63 fonts, out of 3000000 for 9000
+ 4417 strings out of 481199
+ 62097 string characters out of 2905595
+ 315076 words of memory out of 3000000
+ 19959 multiletter control sequences out of 15000+200000
+ 544060 words of font info for 64 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  36i,11n,45p,775b,357s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on "d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.pdf" (5 pages, 145614 bytes).
+<C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/725ma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on "d:/Desktop - HDD\CS440\Minesweeper\pdf\project2.pdf" (18 pages, 322019 bytes).
 PDF statistics:
- 47 PDF objects out of 1000 (max. 8388607)
+ 111 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 
