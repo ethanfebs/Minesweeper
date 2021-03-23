@@ -77,7 +77,7 @@
 \author{\name\\  % replace with your name
 \class} % if necessary, replace with your course title
 \date{\due}
- 
+
 \maketitle
 
 \section*{Integrity}
@@ -86,9 +86,9 @@ We, Ryan Mao and Ethan Febinger, certify that the code and report for this assig
 
 \section*{Work Division}
 
-    Ryan Mao: Problems 1, 4, 5 
+    Ryan Mao: Representation, Play-by-play, Performance graphs
 
-    \noindent Ethan Febinger: Problems 2, 3, 6
+    \noindent Ethan Febinger: Inference, Decision, Efficiency
 
 
 \tableofcontents
@@ -113,18 +113,9 @@ We, Ryan Mao and Ethan Febinger, certify that the code and report for this assig
 
         Each new clue is stored a pair of a set and an integer. This set-integer pair represents an equation. For example, $(\{A, B, C\},2)$ represents the equation $A+B+C=2$ where $A$, $B$, and $C$, are the three covered squares surrounding the clue. In addition to adding a new equation, old equations are also updated in the knowledge base. This means that if the location of a revealed clue is a variable of another equation, that variable is removed from the set. Also, if a mine is revealed, the corresponding variable is removed from the set and the integer value is reduced by one.
         
-        \newline
-        \newline
-        
         First, the program looks for trivial equations to solve. If an equation sums to zero, all variables represent clear locations. If an equation's sum is equal to the number of variables it contains, then every variable represents a mine.
         
-        \newline
-        \newline
-        
         The program also makes inferences by looking if any set is a strict subset of another, i.e. for equations $A$ and $B$ then $A\subseteq B$. If this is the case, $B$ is replaced with $B-A$ in the knowledge base. From this new equation, the basic rules from above can then be checked again to look for additional knowledge.
-        
-        \newline
-        \newline
         
         This program does not deduce everything possible for a given clue. To improve this, the program could iterate through all possible permutations of the variable set and check which permutations satisfy every equation. If any variables were the same for every satisfiable permutation, then we can be sure of whether that variable is a mine. This, however, would be very computationally expensive.
 
@@ -134,8 +125,6 @@ We, Ryan Mao and Ethan Febinger, certify that the code and report for this assig
     
     \item 
         \textit{Decisions: Given a current state of the board, and a state of knowledge about the board, how does  your program decide which cell to search next?}
-
- \newline
         
         When a new cell is revealed, that information is added to the knowledge base. Then, the program infers as much as possible via the inferences described in the previous question. The program then and adds the locations of those cells to a queue and stores whether any should be flagged as a mine. The program then searches through each location in the queue. If nothing can be inferred, a random covered location is added to the queue.
 
@@ -224,9 +213,7 @@ We, Ryan Mao and Ethan Febinger, certify that the code and report for this assig
     \item 
         \textit{Efficiency: What are some of the space or time constraints you run into in implementing this program? Are these problem specific constraints, or implementation specific constraints? In the case of implementation constraints, what could you improve on?}
 
-        We ran into both space and time constraints for this program. We store an equation for every revealed clue. For a board of dimension $d$ there are then $O(d^2)$ equations that need to be stored in the knowledge base at any given time. This is a problem specific constraint. 
-        \newline
-        \newline
+        We ran into both space and time constraints for this program. We store an equation for every revealed clue. For a board of dimension $d$ there are then $O(d^2)$ equations that need to be stored in the knowledge base at any given time. This is a problem specific constraint. \\
         For every inference, the program iterates through every pair of constraints to see if they are subsets of each other. Given $n$ equations, this takes $O(n^2)$ time. This constraint is implementation specific, and certain approaches could be used to improve upon this. For our implementation, all equations are stored in a singular array; however, not every variable appears in every equation. When the board is not dense there is very little overlap between equations. Because of this, the set of all equations can be separated into multiple disjoint sets of equations. Then, the time to iterate over all pairs of equations could be reduced to $O(m^2)$ where $m$ is the size of the largest of these sets.
 
 \end{enumerate}
